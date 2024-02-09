@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wzcy.cr_test.mapper.UserInfoMapper">
+
+    <select id="getUserByUserName" parameterType="string"
+   resultType="com.wzcy.cr_test.bean.UserInfo">
+        SELECT b.pass_word
+        FROM t_userdetailinfo a
+                 INNER JOIN t_userinfo b ON a.login_id = b.login_id
+        WHERE a.user_name = #{user_name}
+
+    </select>
+</mapper>
