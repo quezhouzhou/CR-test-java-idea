@@ -27,8 +27,6 @@ public class UserResult {
         } else {
             result.setMessage(message[0]);
         }
-
-
         result.setData(null);
         return result;
     }

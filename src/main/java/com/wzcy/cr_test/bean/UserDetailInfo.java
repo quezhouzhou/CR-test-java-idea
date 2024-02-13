@@ -10,7 +10,6 @@ public class UserDetailInfo {
     private   int userRoleCode;
     private   String address;
     private  int tel;
-    private Date registrationDate;
     private Date updateDate;
 
 
@@ -54,13 +53,7 @@ public class UserDetailInfo {
         this.tel = tel;
     }
 
-    public Date getRegistrationDate() {
-        return registrationDate;
-    }
 
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
-    }
 
     public Date getUpdateDate() {
         return updateDate;
@@ -78,7 +71,6 @@ public class UserDetailInfo {
                 ", userRoleCode=" + userRoleCode +
                 ", address='" + address + '\'' +
                 ", tel=" + tel +
-                ", registrationDate=" + registrationDate +
                 ", updateDate=" + updateDate +
                 '}';
     }

@@ -15,18 +15,18 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo login(String userName, String passWord) {
         if (StringUtils.isBlank(userName)) {
-            throw new RuntimeException("账号不能为空");
+            throw new RuntimeException("usernameを入力してください");
         }
         if (StringUtils.isBlank(passWord)) {
-            throw new RuntimeException("密码不能为空");
+            throw new RuntimeException("passwordを入力してください");
         }
 
         UserInfo user = userInfoMapper.getUserByUserName(userName);
         if (user == null) {
-            throw new RuntimeException("用户名有误");
+            throw new RuntimeException("正しいのusernameを入力してください");
         }
         if (!user.getPassWord().equals(passWord)) {
-            throw new RuntimeException("密码有误");
+            throw new RuntimeException("正しいのpasswordを入力してください");
         }
         return user;
 

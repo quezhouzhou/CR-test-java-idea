@@ -1,6 +1,8 @@
 package com.wzcy.cr_test.bean;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 
 public class CodeMaster {
 private int codeId;

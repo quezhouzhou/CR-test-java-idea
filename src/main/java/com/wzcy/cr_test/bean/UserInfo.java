@@ -1,13 +1,13 @@
 package com.wzcy.cr_test.bean;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
 public class UserInfo {
+
+
     private int loginId;
-
-
-
-
     private  String passWord;
     private Date validPeriodStart;
     private Date validPeriodEnd;

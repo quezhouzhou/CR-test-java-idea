@@ -5,6 +5,7 @@ import com.wzcy.cr_test.vo.UserResult;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,7 +50,7 @@ public class GlobalExceptionHandler {
 //            ObjectError objectError = getbindingresult.getAllErrors().get(0);
 //            String defaultMessage = objectError.getDefaultMessage();
 //            if (message.length() < 15) {
-//                return EduResult.error(defaultMessage);
+//                return UserResult.error(defaultMessage);
 //            }
 //
 //        }
