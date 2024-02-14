@@ -18,7 +18,7 @@ public class UserInfoController {
     @RequestMapping("/login")
     public UserResult login(String userName,String passWord){
         UserInfo user=userInfoService.login(userName,passWord);
-      return UserResult.ok(user);
+        return UserResult.ok(user);
     }
 
 }

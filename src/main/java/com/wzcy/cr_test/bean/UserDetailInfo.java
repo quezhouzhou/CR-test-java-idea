@@ -7,6 +7,7 @@ public class UserDetailInfo {
 
     private int loginId;
     private String userName;
+    private Date registrationDate;
     private   int userRoleCode;
     private   String address;
     private  int tel;
@@ -53,8 +54,6 @@ public class UserDetailInfo {
         this.tel = tel;
     }
 
-
-
     public Date getUpdateDate() {
         return updateDate;
     }
@@ -63,11 +62,21 @@ public class UserDetailInfo {
         this.updateDate = updateDate;
     }
 
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
     @Override
     public String toString() {
         return "UserDetailInfo{" +
                 "loginId=" + loginId +
                 ", userName='" + userName + '\'' +
+                ", registrationDate=" + registrationDate +
                 ", userRoleCode=" + userRoleCode +
                 ", address='" + address + '\'' +
                 ", tel=" + tel +

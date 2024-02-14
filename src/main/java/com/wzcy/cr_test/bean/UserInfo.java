@@ -22,6 +22,7 @@ public class UserInfo {
         this.loginId = loginId;
     }
 
+
     public String getPassWord() {
         return passWord;
     }
@@ -61,6 +62,10 @@ public class UserInfo {
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
+
+
+
+
 
     @Override
     public String toString() {

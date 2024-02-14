@@ -4,7 +4,7 @@
 
     <select id="getUserByUserName" parameterType="string"
    resultType="com.wzcy.cr_test.bean.UserInfo">
-        SELECT b.pass_word
+        SELECT b.pass_word,b.valid_period_start,b.valid_period_end
         FROM t_userdetailinfo a
                  INNER JOIN t_userinfo b ON a.login_id = b.login_id
         WHERE a.user_name = #{user_name}

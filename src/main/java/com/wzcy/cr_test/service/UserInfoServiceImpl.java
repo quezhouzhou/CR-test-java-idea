@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -29,7 +31,5 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new RuntimeException("正しいのpasswordを入力してください");
         }
         return user;
-
-
     }
 }
