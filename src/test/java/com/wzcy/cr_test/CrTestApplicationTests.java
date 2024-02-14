@@ -9,12 +9,28 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
 import static com.sun.javafx.fxml.expression.Expression.equalTo;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+//import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import org.mockito.Mockito;
+//import org.mockito.MockitoAnnotations;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.springframework.http.MediaType;
+//import org.springframework.test.web.servlet.MockMvc;
+//import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+//import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+//import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+//import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+//import java.nio.charset.StandardCharsets;
+//import java.util.HashMap;
+//import java.util.Map;
+
+
 
 
 
@@ -23,20 +39,14 @@ import static org.mockito.Mockito.*;
 class CrTestApplicationTests {
 
 
-
-
 //测试service层
     @Mock
     private UserInfoMapper userInfoMapper;
 
     @InjectMocks
-    private UserInfoServiceImpl userService;
+    private UserInfoServiceImpl userServiceimpl;
 
-    @Mock
-    private UserInfoService userInfoService;
 
-    @InjectMocks
-    private UserInfoController userInfoController;
 
     //账号密码正确的情况
     @Test
@@ -46,7 +56,7 @@ class CrTestApplicationTests {
         userInfo.setPassWord("qxblshz");
         when(userInfoMapper.getUserByUserName("wzcy")).thenReturn(userInfo);
         // 调用 Service 的方法
-        UserInfo returnedUser = userService.login("wzcy", "qxblshz");
+        UserInfo returnedUser = userServiceimpl.login("wzcy", "qxblshz");
         // 验证结果
         assertEquals("qxblshz", returnedUser.getPassWord());
 
@@ -57,16 +67,15 @@ class CrTestApplicationTests {
     @Test
     public void testLoginWithBlankUsername() {
         assertThrows(RuntimeException.class, () -> {
-            userService.login("", "qxblshz");
+            userServiceimpl.login(" ", "qxblshz");
         });
     }
 
     // 空密码的情况
     @Test
     public void testLoginWithBlankPassword() {
-
         assertThrows(RuntimeException.class, () -> {
-            userService.login("wzcy", "");
+            userServiceimpl.login("wzcy", "");
         });
     }
 
@@ -74,9 +83,9 @@ class CrTestApplicationTests {
 //用户名错误
     @Test
     public void testLoginWithWrongUsername() {
-        when(userInfoMapper.getUserByUserName("wzcy")).thenReturn(null);
+        when(userInfoMapper.getUserByUserName("wrongUser")).thenReturn(null);
         assertThrows(RuntimeException.class, () -> {
-            userService.login("wrongUser", "qxblshz");
+            userServiceimpl.login("wrongUser", "qxblshz");
         });
     }
 
@@ -88,7 +97,7 @@ class CrTestApplicationTests {
         userInfo.setPassWord("qxblshz");
         when(userInfoMapper.getUserByUserName("wzcy")).thenReturn(userInfo);
         assertThrows(RuntimeException.class, () -> {
-            userService.login("wzcy", "wrongPassword");
+            userServiceimpl.login("wzcy", "wrongPassword");
         });
     }
 
@@ -96,11 +105,15 @@ class CrTestApplicationTests {
 
    // 测试controller层
 
+    @Mock
+    private UserInfoService userInfoService;
 
+    @InjectMocks
+    private UserInfoController userInfoController;
 
     @Test
     public void testLogin_成功() {
-        UserResult userResult=new UserResult();
+       UserResult userResult;
         // 准备
         UserInfo userInfo = new UserInfo();
         userInfo.setPassWord("qxblshz");
@@ -131,42 +144,47 @@ class CrTestApplicationTests {
 }
 
 
-
-
 //试错记录
 //
-////private UserInfo userInfo;
-////@Mock
-////private UserInfoServiceImpl userInfoService;
-////private MockMvc mockMvc;
-////private  AutoCloseable closeable;
-////
-////@InjectMocks
-////private UserInfoController userInfoController;
-////
-////@Before
-////public void setUp(){
-////    MockitoAnnotations.openMocks(this);
-////}
-////    @BeforeEach
-////    void setUp1() {
-////      closeable = MockitoAnnotations.openMocks(userInfoController);
-////       mockMvc = MockMvcBuilders.standaloneSetup(userInfoController).build();
-////    }
-////
-////    @Test
-////    void testMock() throws Exception {
-////        when(userInfoService.login("wzcy","1111")).thenThrow(new RuntimeException("正しいのpasswordを入力してください"));
-////        MockHttpServletRequestBuilder request =
-////                MockMvcRequestBuilders.post("/userinfo/login")
-////                        .contentType(MediaType.APPLICATION_JSON_VALUE);
-////        String actual = mockMvc.perform(MockMvcRequestBuilders.post("/userinfo/login"))
-////                .andExpect(MockMvcResultMatchers.status().isCreated())
-////                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
-////                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
-////        Mockito.verify(userInfoService, Mockito.times(1)).login("wzcy","1111");
-////        Assert.assertEquals("正しいのpasswordを入力してください",actual);
-////    }
+//    private MockMvc mockMvc;
+//
+//    private AutoCloseable closeable;
+//    @Mock
+//    private UserInfoServiceImpl userInfoServiceimpl;
+//
+//    @InjectMocks
+//    private UserInfoController userInfoController;
+//
+//    @BeforeEach
+//    void setUp() {
+//        closeable = MockitoAnnotations.openMocks(userInfoController);
+//        mockMvc = MockMvcBuilders.standaloneSetup(userInfoController).build();
+//    }
+//
+//    @Test
+//        void test001() throws Exception {
+//    ObjectMapper objectMapper = new ObjectMapper();
+//
+//    UserInfo userInfo = new UserInfo();
+//    userInfo.setPassWord("qxblshz");
+//
+//   Mockito.when(userInfoServiceimpl.login("wzcy", "qxblshz")).thenReturn(userInfo);
+//        String userInfoJson = objectMapper.writeValueAsString(userInfo);
+//
+//    MockHttpServletRequestBuilder request =
+//            MockMvcRequestBuilders.post("/login")
+//                    .content(userInfoJson)
+//                    .contentType(MediaType.APPLICATION_JSON_VALUE);
+//
+//    String actual = mockMvc.perform(request)
+//            .andExpect(MockMvcResultMatchers.status().isCreated())
+//            .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
+//            .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+//
+//    assertEquals(201, actual);
+//
+//}
+//}
 ////    @Test
 ////    void Mocktest(){
 ////        UserInfo userInfo=new UserInfo();
