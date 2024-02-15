@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
         //判断一下是否是我们抛出去的异常
         //不是我们自己写的异常而是运行过程中不小心出现的异常
         if (ex instanceof RuntimeException) {
-            if (message.length() < 15) {
+            if (message.length() < 50) {
                 return UserResult.error(message);
             }
 
